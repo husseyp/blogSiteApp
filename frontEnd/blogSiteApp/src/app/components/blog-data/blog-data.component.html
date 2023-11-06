@@ -1,0 +1,196 @@
+<div class="row" style="margin-top: 5px;">
+
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="allblog-tab" data-bs-toggle="tab" data-bs-target="#allblog" type="button"
+        role="tab">
+        All Blogs
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="myblog-tab" data-bs-toggle="tab" data-bs-target="#myblog" type="button" role="tab">
+        My Blogs
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="addblog-tab" data-bs-toggle="tab" data-bs-target="#addblog" type="button" role="tab">
+        Add Blog
+      </button>
+    </li>
+  </ul>
+
+</div>
+
+<div class="tab-content" id="myTabContent" style="height: 500px;overflow-y: scroll;">
+  <div class="tab-pane fade show active" id="allblog" role="tabpanel">
+
+    <div class="row">
+      <div class="col-2"></div>
+
+      <div class="col-8">
+        <div style="margin-top: 5px;padding-left: 5px;" *ngFor="let blog of allBlogList">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="post-content">
+                <div class="post-container">
+                  <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="user"
+                    class="profile-photo-md pull-left">
+                  <div class="post-detail">
+                    <div class="user-info">
+                      <h5>
+                        <a href="javascript:void(0)" class="profile-link">{{blog.userId}}</a>
+                        <span class="following">following</span>
+                      </h5>
+                      <p class="text-muted">Published on {{blog.publishedOn | date: 'dd/MM/yyyy'}} </p>
+                    </div>
+                    <div class="reaction">
+                      <a class="btn text-green"><i class="fa fa-thumbs-up"></i> 13</a>
+                      <a class="btn text-red"><i class="fa fa-thumbs-down"></i> 0</a>
+                    </div>
+                    <div class="line-divider"></div>
+                    <div class="post-text">
+                      <b>{{blog.title}}</b>
+                      <p> {{blog.content}}</p>
+                    </div>
+                    <div class="line-divider"></div>
+                    <div style="height: 100px;  overflow: auto;">
+
+                      <div class="post-comment" *ngFor="let singleData of blog.comments">
+                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="" class="profile-photo-sm">
+                        <p>
+                          <a href="javascript:void(0)" class="profile-link">{{singleData.userId}} </a>
+                          {{singleData.description}}
+                        </p>
+                      </div>
+                      <div class="post-comment" *ngIf="blog.comments.length==0">
+                        <i>No comments for this blog as of now. Go ahead and comment</i>
+                      </div>
+                    </div>
+
+
+                    <div class="post-comment">
+                      <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="profile-photo-sm">
+                      <input type="text" [(ngModel)]="blog.userAddcomment" class="form-control" placeholder="Post a comment">
+                    </div>
+
+                    <div class="post-comment">              
+                      <button type="button" class="btn btn-outline-info" [disabled]="blog.userAddcomment.length==0 "
+                      (click)="postComment(blog)">Post</button>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-2"></div>
+
+    </div>
+
+
+  </div>
+  <div class="tab-pane fade" id="myblog" role="tabpanel">
+
+    <div class="row">
+      <div class="col-2"></div>
+      <div class="col-8">
+
+        <div style="margin-top: 5px;padding-left: 5px;" *ngFor="let blog of myBlogList">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="post-content">
+                <div class="post-container">
+                  <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="user"
+                    class="profile-photo-md pull-left">
+                  <div class="post-detail">
+                    <div class="user-info">
+                      <h5>
+                        <a href="javascript:void(0)" class="profile-link">{{blog.userId}}</a>
+                        <span class="following">following</span>
+                      </h5>
+                      <p class="text-muted">Published a photo about 3 mins ago</p>
+                      
+                    </div>
+                    <div class="reaction">
+                      <a class="btn text-green"><i class="fa fa-thumbs-up"></i> 13</a>
+                      <a class="btn text-red"><i class="fa fa-thumbs-down"></i> 0</a>
+                    </div>
+                    <div class="line-divider"></div>
+                    <div class="post-text">
+                      <b>{{blog.title}}</b>
+                      <p> {{blog.content}}</p>
+                    </div>
+                    <div class="line-divider"></div>
+                    <div style="height: 100px;  overflow: auto;">
+
+                      <div class="post-comment" *ngFor="let singleData of blog.comments">
+                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="" class="profile-photo-sm">
+                        <p>
+                          <a href="javascript:void(0)" class="profile-link">{{singleData.userId}} </a>
+                          {{singleData.description}}
+                        </p>
+                      </div>
+                      <div class="post-comment" *ngIf="blog.comments.length==0">
+                          <i>No comments for this blog as of now. Go ahead and comment</i>
+                      </div>
+
+                    </div>
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-2"></div>
+
+    </div>
+
+  </div>
+
+  <div class="tab-pane fade" id="addblog" role="tabpanel">
+    <div class="row">
+      <div class="col-2"></div>
+      <div class="col-8">
+        <br>
+        <form [formGroup]="addBlogForm">
+          <div class="form-group">
+            <label for="email">Title</label>
+            <input type="text" formControlName="title" class="form-control"
+                [ngClass]="{ 'is-invalid': f['title']['touched'] && f['title'].errors }" />
+            <div *ngIf="f['title']['touched'] && f['title'].errors" class="invalid-feedback">
+                <div *ngIf="f['title'].errors['required']">Title is required</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Add Content</label>
+            <textarea class="form-control" formControlName="content" rows="10"
+                      [ngClass]="{ 'is-invalid': f['content']['touched'] && f['content'].errors }"></textarea>
+            <div *ngIf="f['content']['touched'] && f['content'].errors" class="invalid-feedback">
+              <div *ngIf="f['content'].errors['required']">Content is required</div>
+            </div>
+          </div>
+
+          <br>
+          <div class="post-comment">              
+            <button type="button" class="btn btn-primary"
+            (click)="postBlog()">Post</button>
+          </div>
+    
+        </form>
+      </div>
+      <div class="col-2"></div>
+
+    </div>
+
+
+  </div>
+
+</div>

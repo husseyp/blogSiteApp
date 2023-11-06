@@ -1,0 +1,10 @@
+<div  *ngIf="isLoggedIn$ | async as isLoggedIn" class="bg-light d-flex justify-content-between">
+    <div>
+          <h2>Blog Web App</h2>
+    </div>
+    <div style="margin-right: 20px;">
+        <button type="button" class="m-2 btn btn-danger" (click)="userLogout()">
+            Logout
+          </button>
+    </div>
+</div>
