@@ -13,7 +13,7 @@ const users_routes = require('./routes/users.js')
 
 
 
-const uri = "mongodb+srv://harshpatelhp817:0OZWHpKr0o1yIOMr@cluster0.oawgzlc.mongodb.net/blogWebiste";
+const uri = process.env.MONGODB_URI;
 
 mongoose.connect(uri,{
   useNewUrlParser: true,
